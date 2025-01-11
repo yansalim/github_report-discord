@@ -153,7 +153,15 @@ async def send_discord_message(channel_id, message):
 def run():
     # Inicia Flask em uma thread separada
     def run_flask():
-        app.run(host="0.0.0.0", port=PORT, debug=False)
+        app.run(
+    host="0.0.0.0", 
+    port=PORT, 
+    debug=False,
+    ssl_context=(
+        "/etc/letsencrypt/live/homolog.crosoften.com/fullchain.pem",
+        "/etc/letsencrypt/live/homolog.crosoften.com/privkey.pem"
+    )
+,)
 
     flask_thread = threading.Thread(target=run_flask, daemon=True)
     flask_thread.start()
